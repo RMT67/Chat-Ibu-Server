@@ -1,12 +1,20 @@
 const express = require("express");
 const cors = require("cors");
 const http = require("http");
+require("dotenv").config();
 
 const routes = require("./routes");
 const errorHandler = require("./middleware/errorHandler");
+const socketService = require("./services/socketService");
 
 const app = express();
 const server = http.createServer(app);
+
+// Initialize Socket.io
+socketService.initializeSocket(server);
+
+// Store io instance in app for access in controllers
+app.set("io", socketService.getIO());
 
 // Middleware
 app.use(
