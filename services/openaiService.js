@@ -115,12 +115,56 @@ const generateRoomContent = async (userId = null) => {
     throw new Error("Too many requests. Please wait before generating again.");
   }
 
-  const prompt = `Generate konten untuk room chat komunitas ibu-ibu Indonesia. Berikan 3 hal dengan format yang jelas:
-Title: [Judul room yang menarik]
-Description: [Deskripsi singkat room dalam 2-3 kalimat]
-Topic: [Topik diskusi yang relevan dan menarik]
+  // Array of different categories/themes untuk variasi
+  const categories = [
+    "Kesehatan & Kebugaran",
+    "Parenting & Pendidikan Anak",
+    "Resep Masakan & Kuliner",
+    "Keuangan & Investasi Keluarga",
+    "Karier & Work-Life Balance",
+    "Hubungan & Komunikasi",
+    "Self-Care & Kesejahteraan Mental",
+    "Fashion & Gaya Hidup",
+    "Travel & Liburan Keluarga",
+    "Teknologi & Digital Parenting",
+    "Hobi & Kreativitas",
+    "Kesehatan Mental & Emosional",
+    "Nutrisi & Makanan Sehat",
+    "Olahraga & Aktivitas Fisik",
+    "Pendidikan Anak & Sekolah",
+    "Keuangan Rumah Tangga",
+    "Beauty & Perawatan Diri",
+    "Komunitas & Networking",
+  ];
 
-Pastikan konten menarik, relevan untuk komunitas ibu-ibu, dan memicu diskusi yang bermakna.`;
+  // Randomly select a category untuk variasi
+  const selectedCategory =
+    categories[Math.floor(Math.random() * categories.length)];
+
+  // Add timestamp-based seed untuk lebih banyak variasi
+  const timeSeed = Date.now() % 1000;
+
+  const prompt = `Generate konten UNIK dan BERBEDA untuk room chat komunitas ibu-ibu Indonesia dengan tema/kategori: "${selectedCategory}".
+
+PENTING: Buat konten yang BENAR-BENAR BERBEDA dari sebelumnya. Jangan gunakan konten yang sama atau mirip.
+
+Berikan 3 hal dengan format yang jelas:
+Title: [Judul room yang menarik, spesifik, dan unik untuk kategori ${selectedCategory}]
+Description: [Deskripsi singkat room dalam 2-3 kalimat yang menjelaskan tujuan dan manfaat room ini]
+Topic: [Topik diskusi yang relevan, spesifik, dan menarik untuk kategori ${selectedCategory}]
+
+Contoh kategori yang bisa dijadikan inspirasi (tapi buat yang BERBEDA):
+- Kesehatan: Tips menjaga kesehatan pasca melahirkan, olahraga untuk ibu, dll
+- Parenting: Metode mendidik anak, menghadapi tantrum, dll
+- Kuliner: Resep sehat untuk keluarga, meal prep, dll
+- Keuangan: Mengelola keuangan rumah tangga, investasi untuk ibu, dll
+- Karier: Work from home dengan anak, keseimbangan kerja-keluarga, dll
+
+Pastikan konten:
+- Menarik dan relevan untuk komunitas ibu-ibu Indonesia
+- Spesifik untuk kategori "${selectedCategory}"
+- Memicu diskusi yang bermakna
+- UNIK dan BERBEDA dari konten sebelumnya`;
 
   try {
     const client = getOpenAIClient();
@@ -131,14 +175,15 @@ Pastikan konten menarik, relevan untuk komunitas ibu-ibu, dan memicu diskusi yan
         {
           role: "system",
           content:
-            "You are a helpful assistant that generates room content for Indonesian mothers community. Always respond in the exact format requested: Title, Description, Topic.",
+            "You are a creative assistant that generates UNIQUE and VARIED room content for Indonesian mothers community. Each generation must be DIFFERENT from previous ones. Always respond in the exact format requested: Title, Description, Topic. Be creative and avoid repetition.",
         },
         {
           role: "user",
           content: prompt,
         },
       ],
-      temperature: 0.8,
+      temperature: 1.0, // Increased from 0.8 to 1.0 for more creativity and variation
+      top_p: 0.9, // Add top_p for more diverse outputs
       max_tokens: 300,
     });
 
