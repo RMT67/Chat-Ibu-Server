@@ -77,27 +77,46 @@ exports.login = async (req, res, next) => {
   }
 };
 
+exports.getUsers = async (req, res, next) => {
+  try {
+    const { isOnline, limit = 50, offset = 0 } = req.query;
+    
+    const where = {};
+    if (isOnline !== undefined) {
+      where.isOnline = isOnline === 'true';
+    }
+    
+    const { count, rows } = await User.findAndCountAll({
+      where,
+      attributes: ['id', 'name', 'email', 'photoUrl', 'isOnline', 'lastSeen', 'role', 'createdAt'],
+      order: [['createdAt', 'DESC']],
+      limit: parseInt(limit),
+      offset: parseInt(offset)
+    });
+    
+    res.json({
+      users: rows,
+      total: count,
+      limit: parseInt(limit),
+      offset: parseInt(offset)
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 exports.getUserById = async (req, res, next) => {
   try {
     const { id } = req.params;
-
+    
     const user = await User.findByPk(id, {
-      attributes: [
-        "id",
-        "name",
-        "email",
-        "photoUrl",
-        "isOnline",
-        "lastSeen",
-        "role",
-        "createdAt",
-      ],
+      attributes: ['id', 'name', 'email', 'photoUrl', 'isOnline', 'lastSeen', 'role', 'createdAt']
     });
-
+    
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(404).json({ message: 'User not found' });
     }
-
+    
     res.json({ user });
   } catch (error) {
     next(error);
