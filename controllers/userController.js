@@ -122,3 +122,38 @@ exports.getUserById = async (req, res, next) => {
     next(error);
   }
 };
+
+exports.updateUser = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { name, photoUrl } = req.body;
+    
+    const user = await User.findByPk(id);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    
+    // Only allow updating own profile
+    if (req.user.id !== parseInt(id)) {
+      return res.status(403).json({ message: 'Forbidden' });
+    }
+    
+    if (name) user.name = name;
+    if (photoUrl !== undefined) user.photoUrl = photoUrl;
+    
+    await user.save();
+    
+    res.json({
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        photoUrl: user.photoUrl,
+        isOnline: user.isOnline,
+        role: user.role
+      }
+    });
+  } catch (error) {
+    next(error);
+  }
+};
