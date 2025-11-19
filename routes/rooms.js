@@ -8,4 +8,6 @@ const roomController = require("../controllers/roomController");
 router.get("/:id", authenticate, roomController.getRoomById);
 router.get("/", authenticate, roomController.getRooms);
 
+router.post("/", authenticate, requireAdmin, roomController.createRoom);
+
 module.exports = router;
