@@ -33,8 +33,8 @@ app.get("/", (req, res) => {
       health: "/health",
       api: "/api",
       auth: {
-        register: "POST /api/auth/register atau POST /api/users/register",
-        login: "POST /api/auth/login atau POST /api/users/login",
+        register: "POST /api/users/register",
+        login: "POST /api/users/login",
       },
       users: "GET /api/users",
       chats: "GET /api/chats",
