@@ -77,31 +77,112 @@ exports.login = async (req, res, next) => {
   }
 };
 
+exports.getUsers = async (req, res, next) => {
+  try {
+    const { isOnline, limit = 50, offset = 0 } = req.query;
+    
+    const where = {};
+    if (isOnline !== undefined) {
+      where.isOnline = isOnline === 'true';
+    }
+    
+    const { count, rows } = await User.findAndCountAll({
+      where,
+      attributes: ['id', 'name', 'email', 'photoUrl', 'isOnline', 'lastSeen', 'role', 'createdAt'],
+      order: [['createdAt', 'DESC']],
+      limit: parseInt(limit),
+      offset: parseInt(offset)
+    });
+    
+    res.json({
+      users: rows,
+      total: count,
+      limit: parseInt(limit),
+      offset: parseInt(offset)
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.getUserById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    
+    const user = await User.findByPk(id, {
+      attributes: ['id', 'name', 'email', 'photoUrl', 'isOnline', 'lastSeen', 'role', 'createdAt']
+    });
+    
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    
+    res.json({ user });
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.updateUser = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { name, photoUrl } = req.body;
+    
+    const user = await User.findByPk(id);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    
+    // Only allow updating own profile
+    if (req.user.id !== parseInt(id)) {
+      return res.status(403).json({ message: 'Forbidden' });
+    }
+    
+    if (name) user.name = name;
+    if (photoUrl !== undefined) user.photoUrl = photoUrl;
+    
+    await user.save();
+    
+    res.json({
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        photoUrl: user.photoUrl,
+        isOnline: user.isOnline,
+        role: user.role
+      }
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 exports.updateOnlineStatus = async (req, res, next) => {
   try {
     const { id } = req.params;
     const { isOnline } = req.body;
-
+    
     const user = await User.findByPk(id);
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(404).json({ message: 'User not found' });
     }
-
+    
     // Only allow updating own status
     if (req.user.id !== parseInt(id)) {
-      return res.status(403).json({ message: "Forbidden" });
+      return res.status(403).json({ message: 'Forbidden' });
     }
-
+    
     user.isOnline = isOnline;
     user.lastSeen = new Date();
     await user.save();
-
+    
     res.json({
       user: {
         id: user.id,
         isOnline: user.isOnline,
-        lastSeen: user.lastSeen,
-      },
+        lastSeen: user.lastSeen
+      }
     });
   } catch (error) {
     next(error);
