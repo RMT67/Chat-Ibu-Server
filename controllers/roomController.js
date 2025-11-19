@@ -49,3 +49,21 @@ exports.getRoomById = async (req, res, next) => {
     next(error);
   }
 };
+
+exports.generateRoomContent = async (req, res, next) => {
+  try {
+    // Only admin can generate room content
+    if (req.user.role !== "admin") {
+      return res
+        .status(403)
+        .json({ message: "Forbidden: Admin access required" });
+    }
+
+    const { generateRoomContent } = require("../services/openaiService");
+    const content = await generateRoomContent();
+
+    res.json(content);
+  } catch (error) {
+    next(error);
+  }
+};
