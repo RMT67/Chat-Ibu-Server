@@ -6,5 +6,6 @@ const roomController = require("../controllers/roomController");
 
 // All routes require authentication
 router.get("/:id", authenticate, roomController.getRoomById);
+router.get("/", authenticate, roomController.getRooms);
 
 module.exports = router;
