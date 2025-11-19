@@ -7,10 +7,13 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node bin/www.js",
     "dev": "nodemon bin/www.js",
-    "migrate": "sequelize-cli db:migrate",
+    "migrate": "node scripts/migrate.js",
+    "migrate:prod": "node scripts/migrate.js production",
     "migrate:undo": "sequelize-cli db:migrate:undo",
-    "seed": "sequelize-cli db:seed:all",
-    "seed:undo": "sequelize-cli db:seed:undo:all"
+    "seed": "node scripts/seed.js",
+    "seed:prod": "node scripts/seed.js production",
+    "seed:undo": "sequelize-cli db:seed:undo:all",
+    "test:db": "node scripts/test-db-connection.js"
   },
   "repository": {
     "type": "git",
