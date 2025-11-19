@@ -1,0 +1,35 @@
+{
+  "name": "chat-ibu-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheresiaSamantha/Chat-Ibu-Server.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TheresiaSamantha/Chat-Ibu-Server/issues"
+  },
+  "homepage": "https://github.com/TheresiaSamantha/Chat-Ibu-Server#readme",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.5",
+    "dotnet": "^1.1.4",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.16.3",
+    "sequelize": "^6.37.7"
+  },
+  "devDependencies": {
+    "jest": "^30.2.0",
+    "nodemon": "^3.1.11",
+    "sequelize-cli": "^6.6.3",
+    "supertest": "^7.1.4"
+  }
+}
