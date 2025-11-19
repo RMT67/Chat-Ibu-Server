@@ -53,7 +53,7 @@ exports.getRoomById = async (req, res, next) => {
 exports.generateRoomContent = async (req, res, next) => {
   try {
     const { generateRoomContent } = require("../services/openaiService");
-    const content = await generateRoomContent();
+    const content = await generateRoomContent(req.user.id);
 
     res.json(content);
   } catch (error) {
@@ -85,7 +85,8 @@ exports.createRoom = async (req, res, next) => {
       const openingMessage = await generateOpeningMessage(
         name,
         topic || "Diskusi Umum",
-        description || ""
+        description || "",
+        req.user.id
       );
 
       // Create opening chat message (use admin user as sender)
