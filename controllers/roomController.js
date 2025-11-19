@@ -52,13 +52,6 @@ exports.getRoomById = async (req, res, next) => {
 
 exports.generateRoomContent = async (req, res, next) => {
   try {
-    // Only admin can generate room content
-    if (req.user.role !== "admin") {
-      return res
-        .status(403)
-        .json({ message: "Forbidden: Admin access required" });
-    }
-
     const { generateRoomContent } = require("../services/openaiService");
     const content = await generateRoomContent();
 
@@ -70,13 +63,6 @@ exports.generateRoomContent = async (req, res, next) => {
 
 exports.createRoom = async (req, res, next) => {
   try {
-    // Only admin can create rooms
-    if (req.user.role !== "admin") {
-      return res
-        .status(403)
-        .json({ message: "Forbidden: Admin access required" });
-    }
-
     const { name, description, topic } = req.body;
     const { Chat } = require("../models");
     const { generateOpeningMessage } = require("../services/openaiService");
@@ -138,13 +124,6 @@ exports.createRoom = async (req, res, next) => {
 
 exports.updateRoom = async (req, res, next) => {
   try {
-    // Only admin can update rooms
-    if (req.user.role !== "admin") {
-      return res
-        .status(403)
-        .json({ message: "Forbidden: Admin access required" });
-    }
-
     const { id } = req.params;
     const { name, description, topic, isActive } = req.body;
 
@@ -178,13 +157,6 @@ exports.updateRoom = async (req, res, next) => {
 
 exports.deleteRoom = async (req, res, next) => {
   try {
-    // Only admin can delete rooms
-    if (req.user.role !== "admin") {
-      return res
-        .status(403)
-        .json({ message: "Forbidden: Admin access required" });
-    }
-
     const { id } = req.params;
 
     const room = await Room.findByPk(id);
