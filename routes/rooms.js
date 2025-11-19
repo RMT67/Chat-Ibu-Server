@@ -8,7 +8,9 @@ const roomController = require("../controllers/roomController");
 router.get("/:id", authenticate, roomController.getRoomById);
 router.get("/", authenticate, roomController.getRooms);
 
-// Admin-only routes
-router.put("/:id", authenticate, requireAdmin, roomController.updateRoom);
+/ Admin-only routes
+router.post('/generate-content', authenticate, requireAdmin, roomController.generateRoomContent);
+router.post('/', authenticate, requireAdmin, roomController.createRoom);
+router.put('/:id', authenticate, requireAdmin, roomController.updateRoom);
 
 module.exports = router;
