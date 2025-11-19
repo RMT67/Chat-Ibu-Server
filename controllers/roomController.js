@@ -49,3 +49,29 @@ exports.getRoomById = async (req, res, next) => {
     next(error);
   }
 };
+
+exports.deleteRoom = async (req, res, next) => {
+  try {
+    // Only admin can delete rooms
+    if (req.user.role !== "admin") {
+      return res
+        .status(403)
+        .json({ message: "Forbidden: Admin access required" });
+    }
+
+    const { id } = req.params;
+
+    const room = await Room.findByPk(id);
+    if (!room) {
+      return res.status(404).json({ message: "Room not found" });
+    }
+
+    // Soft delete by setting isActive to false
+    room.isActive = false;
+    await room.save();
+
+    res.json({ message: "Room deactivated successfully" });
+  } catch (error) {
+    next(error);
+  }
+};

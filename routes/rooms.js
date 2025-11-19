@@ -8,4 +8,7 @@ const roomController = require("../controllers/roomController");
 router.get("/:id", authenticate, roomController.getRoomById);
 router.get("/", authenticate, roomController.getRooms);
 
+// Admin-only routes
+router.delete("/:id", authenticate, requireAdmin, roomController.deleteRoom);
+
 module.exports = router;
