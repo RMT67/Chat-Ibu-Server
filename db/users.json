@@ -1,0 +1,48 @@
+[
+  {
+    "id": 1,
+    "name": "Ibu Siti",
+    "email": "siti@example.com",
+    "password": "password123",
+    "photoUrl": null,
+    "isOnline": false,
+    "lastSeen": null
+  },
+  {
+    "id": 2,
+    "name": "Ibu Budi",
+    "email": "budi@example.com",
+    "password": "password123",
+    "photoUrl": null,
+    "isOnline": false,
+    "lastSeen": null
+  },
+  {
+    "id": 3,
+    "name": "Ibu Rina",
+    "email": "rina@example.com",
+    "password": "password123",
+    "photoUrl": null,
+    "isOnline": false,
+    "lastSeen": null
+  },
+  {
+    "id": 4,
+    "name": "Ibu Maya",
+    "email": "maya@example.com",
+    "password": "password123",
+    "photoUrl": null,
+    "isOnline": false,
+    "lastSeen": null
+  },
+  {
+    "id": 5,
+    "name": "Ibu Dina",
+    "email": "dina@example.com",
+    "password": "password123",
+    "photoUrl": null,
+    "isOnline": false,
+    "lastSeen": null
+  }
+]
+
