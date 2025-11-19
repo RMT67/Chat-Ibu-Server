@@ -1,0 +1,73 @@
+[
+  {
+    "id": 1,
+    "UserId": 1,
+    "message": "Halo semua! Ada yang punya tips untuk mengatasi anak susah makan?",
+    "IssueId": 1,
+    "createdAt": "2025-01-18T10:00:00.000Z"
+  },
+  {
+    "id": 2,
+    "UserId": 2,
+    "message": "Saya juga punya masalah sama. Anak saya umur 2 tahun susah sekali makan.",
+    "IssueId": 1,
+    "createdAt": "2025-01-18T10:05:00.000Z"
+  },
+  {
+    "id": 3,
+    "UserId": 3,
+    "message": "Coba buat makanan dengan bentuk yang menarik, seperti bentuk binatang atau karakter kartun.",
+    "IssueId": 1,
+    "createdAt": "2025-01-18T10:10:00.000Z"
+  },
+  {
+    "id": 4,
+    "UserId": 1,
+    "message": "Terima kasih tipsnya! Akan saya coba.",
+    "IssueId": 1,
+    "createdAt": "2025-01-18T10:15:00.000Z"
+  },
+  {
+    "id": 5,
+    "UserId": 2,
+    "message": "Untuk MPASI pertama, saya pakai bubur beras merah dengan puree wortel.",
+    "IssueId": 2,
+    "createdAt": "2025-01-18T11:00:00.000Z"
+  },
+  {
+    "id": 6,
+    "UserId": 4,
+    "message": "Saya juga pakai puree buah seperti pisang atau apel untuk variasi.",
+    "IssueId": 2,
+    "createdAt": "2025-01-18T11:05:00.000Z"
+  },
+  {
+    "id": 7,
+    "UserId": 5,
+    "message": "Penting untuk memperkenalkan satu jenis makanan dulu selama 3-4 hari untuk cek alergi.",
+    "IssueId": 2,
+    "createdAt": "2025-01-18T11:10:00.000Z"
+  },
+  {
+    "id": 8,
+    "UserId": 1,
+    "message": "Kalau anak demam, biasanya saya kompres dulu dengan air hangat.",
+    "IssueId": 3,
+    "createdAt": "2025-01-18T12:00:00.000Z"
+  },
+  {
+    "id": 9,
+    "UserId": 3,
+    "message": "Kalau demam lebih dari 3 hari atau suhu di atas 38.5, sebaiknya ke dokter.",
+    "IssueId": 3,
+    "createdAt": "2025-01-18T12:05:00.000Z"
+  },
+  {
+    "id": 10,
+    "UserId": 2,
+    "message": "Jangan lupa beri banyak minum air putih untuk mencegah dehidrasi.",
+    "IssueId": 3,
+    "createdAt": "2025-01-18T12:10:00.000Z"
+  }
+]
+
